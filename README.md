@@ -146,9 +146,3 @@ smoke-test settings such as `--bootstrap-resamples 2` can produce near-zero SE
 estimates and artificially huge interval widths. The default value, `20`,
 matches the paper experiment config.
 
-## Notes for Anonymized Submission
-
-Before submission, you can zip this directory as a standalone artifact. The
-included sanitized CSVs are generated from the configured paper annotation
-roots and intentionally omit raw prompts and completions. Check the source
-dataset and model-provider terms before redistributing cached annotations.
