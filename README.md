@@ -1,6 +1,6 @@
 # Soft-Elo Reproducibility Package
 
-This directory is an anonymizable, standalone package for reproducing the core
+This directory is a standalone package for reproducing the core
 Hard-Elo vs. Soft-Elo pipeline without the full internal experiment tree. It is
 not a toy reimplementation: it includes leave-one-model-out Elo estimation,
 held-out temperature fitting, bootstrap summaries, score calibration diagnostics,
