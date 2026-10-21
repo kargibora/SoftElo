@@ -1,0 +1,3 @@
+method,mle_mode,beta_reference,temperature_fit_mean,temperature_fit_std,mae,spearman_rho,kendall_tau,spread,n_models,heldout_beta_policy,label,family,params_b,provider
+hard,decisive,,,,69.32864887871379,0.9375907111756169,0.7948717948717948,2.3180119935653365,52,reestimate_per_target,Qwen3.5-27B,Qwen,27,Qwen
+soft,decisive,,0.5117869732890598,0.003617380421193803,20.01955474214087,0.923162298301033,0.7631975867269986,0.7482621385833664,52,reestimate_per_target,Qwen3.5-27B,Qwen,27,Qwen

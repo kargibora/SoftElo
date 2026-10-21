@@ -1,0 +1,305 @@
+{
+  "extraction": "AST-selected source text; imports and constants supplied by release; numerical operations preserved",
+  "sources": [
+    {
+      "path": "OpenJury/openjury/arena/config.py",
+      "sha256": "321443e388eec1dd27d64a7168c95e8971df171575cede86a4f36590e7bf40c2",
+      "symbols": [
+        {
+          "name": "MatchResult",
+          "line_start": 703,
+          "line_end": 747,
+          "source_sha256": "91105b7ac1108eec7298c566ac2dbb7e0a020f50abaac283e974ba02766db8cf"
+        }
+      ]
+    },
+    {
+      "path": "OpenJury/openjury/arena/ratings.py",
+      "sha256": "2951927371b17d939dfacb3a428d49b58c384249fcbeaef8903c9cf651e30881",
+      "symbols": [
+        {
+          "name": "_logistic",
+          "line_start": 481,
+          "line_end": 483,
+          "source_sha256": "dcc14e7e77f927bde04da6949cd2ad7a0ae64325b8c75f4d2f809b3e7b8b468a"
+        },
+        {
+          "name": "fit_multi_bt",
+          "line_start": 204,
+          "line_end": 310,
+          "source_sha256": "630d27fed8363bcebfec0241a8a70bbe291722b2b58efd77932c48d22a783e09"
+        },
+        {
+          "name": "score_gap_array",
+          "line_start": 486,
+          "line_end": 514,
+          "source_sha256": "6d7d9b9d70f084220cb51b5b0b15b7910ce4de556fce9d074e4b36aa5281b345"
+        },
+        {
+          "name": "compute_soft_labels",
+          "line_start": 517,
+          "line_end": 553,
+          "source_sha256": "b7a4149764b636ea47f7af1b28995a85f6771b860e54bc6d95396d95674f49ca"
+        },
+        {
+          "name": "fit_softlabel_bt",
+          "line_start": 555,
+          "line_end": 635,
+          "source_sha256": "796bbdd518622f93ba5d3a1cee878e250c2b7be76855fb28573ad9f15fce4ef6"
+        }
+      ]
+    },
+    {
+      "path": "experiments/bt.py",
+      "sha256": "e496d866ad7c7f3bf240443daa4a3ae5afb71fec893a73fb394901fae4fd3fae",
+      "symbols": [
+        {
+          "name": "model_universe",
+          "line_start": 68,
+          "line_end": 70,
+          "source_sha256": "fd182827304ded898f024e94f4a8333dea4a82de615c0ed9574092035ab3da78"
+        },
+        {
+          "name": "infer_score_dimensions",
+          "line_start": 73,
+          "line_end": 78,
+          "source_sha256": "5fb32fc87090612f137d7002f273daa189ee35ef7ce0b45493b5d3bae5cbd372"
+        },
+        {
+          "name": "clean_scores",
+          "line_start": 81,
+          "line_end": 99,
+          "source_sha256": "d43f5f33477fefd87fd7f1a95e7718dab7c76b18f78919886c0ce509d3296f5c"
+        },
+        {
+          "name": "valid_decisive",
+          "line_start": 181,
+          "line_end": 185,
+          "source_sha256": "50f9429d3770d72ee540e26220b462ff4dbae848ad72bb935f17c20ea4f97f90"
+        },
+        {
+          "name": "score_matrices",
+          "line_start": 188,
+          "line_end": 203,
+          "source_sha256": "f9c964bc2fd33ea01bb0f5985e35c5b336b23140c1db4256f036cc449a174115"
+        },
+        {
+          "name": "build_matches",
+          "line_start": 230,
+          "line_end": 258,
+          "source_sha256": "b8d66bcc9d550ecee35ab2b3588e59b053477a31bc5b0300770fc2b6810003b8"
+        },
+        {
+          "name": "theta_to_elo",
+          "line_start": 265,
+          "line_end": 267,
+          "source_sha256": "cf28f70aab3793225194ddb2e412f3a39607a80434d0faf7bf582090433d9037"
+        },
+        {
+          "name": "eval_elo",
+          "line_start": 290,
+          "line_end": 312,
+          "source_sha256": "ac62d3546eecfc8a62073e823f6673ca659c0ffeab9ace4b4bd5db2b6b6abf1b"
+        }
+      ]
+    },
+    {
+      "path": "experiments/preferences.py",
+      "sha256": "0991047971239d1585239c3905c4811912258a8e57daaab0525551457c7303a8",
+      "symbols": [
+        {
+          "name": "collapse_preference_value",
+          "line_start": 48,
+          "line_end": 64,
+          "source_sha256": "231f8eca2f042afc4d2e57d24a51450469dedfc020099e20a26ac48c23c07bbf"
+        },
+        {
+          "name": "collapse_preference_frame",
+          "line_start": 67,
+          "line_end": 88,
+          "source_sha256": "e190557bcf13700faac5981e2382b292497b8c9e84b506bfcf82cf6df4b433bf"
+        }
+      ]
+    },
+    {
+      "path": "experiments/softlabel.py",
+      "sha256": "11ff5a2493c4713e1e4f01e253e75d2a4dee28b9a83b5a1153953c0296b7b2c2",
+      "symbols": [
+        {
+          "name": "target_vs_anchor_rows",
+          "line_start": 118,
+          "line_end": 132,
+          "source_sha256": "407e8ec2b02bbfc59b4a117209efc495814c0db4ffaa095717132f78a018efb2"
+        },
+        {
+          "name": "_encoded_outcome_for_target",
+          "line_start": 135,
+          "line_end": 147,
+          "source_sha256": "57840f92a8f1275e3133234493365b0619c1df6fb644f190dfff38477e3350ca"
+        },
+        {
+          "name": "encode_target_outcomes",
+          "line_start": 150,
+          "line_end": 177,
+          "source_sha256": "9398d1c1d165c8922eac92a57d3b65a07c124d448f6606da1745821cd1e111d6"
+        },
+        {
+          "name": "solve_target_theta",
+          "line_start": 180,
+          "line_end": 206,
+          "source_sha256": "113d12d8ce1737bb9e14ea67d0e0753e7e55a6f1aaedd3b572a0650beb92a2d2"
+        },
+        {
+          "name": "fit_pool_bt",
+          "line_start": 209,
+          "line_end": 226,
+          "source_sha256": "3d8db172e05838149a105ea38378ec14512b7fe8a909938ba15229b41df83774"
+        },
+        {
+          "name": "_row_soft_label",
+          "line_start": 229,
+          "line_end": 250,
+          "source_sha256": "063a2d60ddb4e95d14df9cd023a5b954fc376fc90b4d98339b6ac40777434125"
+        },
+        {
+          "name": "encode_target_soft_outcomes",
+          "line_start": 253,
+          "line_end": 323,
+          "source_sha256": "9be9395cd0e87ad394c20fc3032326735e2c15df40fdb257cf69917f6b99370f"
+        },
+        {
+          "name": "fit_pool_bt_soft",
+          "line_start": 326,
+          "line_end": 401,
+          "source_sha256": "715619fcb431b8e68066b9108a964aa639a0d02c7ced57f333cc3fc8f60ace8d"
+        }
+      ]
+    },
+    {
+      "path": "experiments/temperature.py",
+      "sha256": "3d514eea8237bffa18cf43fac69f61bd7e3ee7152ec1c5ac0fbf7b7278b00c96",
+      "symbols": [
+        {
+          "name": "_pref_to_model_a_prob",
+          "line_start": 26,
+          "line_end": 32,
+          "source_sha256": "6408e4868f6094acebb20d391155894c85c73bdb573566ec55a7410aa6f0bd6d"
+        },
+        {
+          "name": "fit_temperature_mle",
+          "line_start": 35,
+          "line_end": 103,
+          "source_sha256": "c04a4f7581a31f7fba8ffd532c63413cbcc579f6c1ce111ef5779c772a8ba6dd"
+        },
+        {
+          "name": "run_temperature_holdout",
+          "line_start": 106,
+          "line_end": 343,
+          "source_sha256": "562aaa1c7307c01aa9b4f1549dcf979e523134ecf9d0ee90c23f96f325b74aa4"
+        }
+      ]
+    },
+    {
+      "path": "experiments/conformal.py",
+      "sha256": "d10f978335b2680a9453e2f0d168bcae7534617ab2678b1042fb56494d45759c",
+      "symbols": [
+        {
+          "name": "prepare_shared_frame",
+          "line_start": 49,
+          "line_end": 65,
+          "source_sha256": "9342353c316326b3fd44f9d36136a0281d758b78aafcdb5af7e26e86533ac592"
+        },
+        {
+          "name": "_count_target_outcomes",
+          "line_start": 105,
+          "line_end": 124,
+          "source_sha256": "5e09031c1c383154c55e1babc1a1e4332c6adb56e848b3bf3d8a38be036943df"
+        },
+        {
+          "name": "_eligible_target_models",
+          "line_start": 127,
+          "line_end": 157,
+          "source_sha256": "c36e4b31162d3e093d0e06520d884a29c7d6baaad88cb4c79d0cf0d6216f9920"
+        },
+        {
+          "name": "_estimate_target_theta",
+          "line_start": 160,
+          "line_end": 178,
+          "source_sha256": "d01b2457037d0aecf7668925ede1ba055118d47b355a9d76d8a5f4074a8a53e0"
+        },
+        {
+          "name": "_bootstrap_target_theta",
+          "line_start": 181,
+          "line_end": 238,
+          "source_sha256": "a8effa2af0a4a8b45b9a87bdce77c6572053fd1250bb749ed7470ff3611e1828"
+        },
+        {
+          "name": "_bootstrap_target_theta_soft",
+          "line_start": 241,
+          "line_end": 277,
+          "source_sha256": "39a0763f462f575e5838a4f143115982283d4396e39fb7a495b5d6ef40734c56"
+        },
+        {
+          "name": "build_heldout_table",
+          "line_start": 285,
+          "line_end": 457,
+          "source_sha256": "509c15d9da1959c2f3b14e0732ac9803fd2847c4abaa8dcd2cceebc151854210"
+        },
+        {
+          "name": "_conformal_quantile",
+          "line_start": 692,
+          "line_end": 698,
+          "source_sha256": "ddda812e4b57a47fa6bf7b82a0e65a14f68549fc35d1cf27a664525180c8136e"
+        },
+        {
+          "name": "split_conformal_model_calibration",
+          "line_start": 744,
+          "line_end": 795,
+          "source_sha256": "69b6169721dac93208ea45006fe756afde8373c3d546c909b72e814e34f4e041"
+        },
+        {
+          "name": "repeated_split_conformal",
+          "line_start": 798,
+          "line_end": 847,
+          "source_sha256": "1d8f3bab380352c2ce15fb629fd0618497f4d6dcf9450510d8944236304ef025"
+        },
+        {
+          "name": "build_alpha_summary",
+          "line_start": 1082,
+          "line_end": 1113,
+          "source_sha256": "af03a9df9af578a77c035092a8ed681510e464293ad4530a11224b481a36d84f"
+        }
+      ]
+    },
+    {
+      "path": "experiments/adhoc_constant_smoothing.py",
+      "sha256": "58dc0f20f2b9c22b6eedc93ae06a0bd122ed758580fe479aed2f1de7ea2a6538",
+      "symbols": [
+        {
+          "name": "_build_constant_matches",
+          "line_start": 70,
+          "line_end": 103,
+          "source_sha256": "c7776eca30cee6b759746fcaebef8345e4649da87a85650be7cccf2f9327bf5e"
+        },
+        {
+          "name": "_make_match",
+          "line_start": 106,
+          "line_end": 121,
+          "source_sha256": "b887eb5c1d6c5928021c537f6474ae53c1387c18a10151744ecfe4c015167fd3"
+        },
+        {
+          "name": "_encode_constant_target_for_held_out",
+          "line_start": 124,
+          "line_end": 155,
+          "source_sha256": "6d6e9ed0d2f6dd2f1e20c8846f427f3c9518ac2a57d3633d318a92e4a0a41fd1"
+        }
+      ]
+    }
+  ],
+  "documentation_edits": [
+    {
+      "symbol": "_build_constant_matches",
+      "change": "Corrected inherited docstring to match executed code: A wins maps to c, B wins to 1-c. Executable AST unchanged."
+    }
+  ]
+}

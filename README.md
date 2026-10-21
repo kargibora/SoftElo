@@ -1,99 +1,158 @@
 # Soft-Elo
 
+[![Paper](https://img.shields.io/badge/Paper-OpenReview-8c1b13)](https://openreview.net/forum?id=QRZ8c3QtOj)
+[![NeurIPS 2026](https://img.shields.io/badge/NeurIPS_2026-Poster-6847a3)](https://neurips.cc/virtual/2026/loc/paris/poster/152776)
+[![Dataset](https://img.shields.io/badge/Hugging_Face-Dataset-ffd21e)](https://huggingface.co/datasets/kbora/SoftElo)
+
 **From Uncertain Judgments to Calibrated Rankings: Conformal Elo Estimation for LLM Evaluation**
 
-Bora Kargi and David Salinas · **NeurIPS 2026 · Poster**
+Bora Kargi and David Salinas · NeurIPS 2026
 
-[Paper](https://arxiv.org/abs/2606.13221) · [Project page](https://kargibora.github.io/conformal-elo/) · [Data](data/) · [Citation](#citation)
+Soft-Elo maps a judge's score differences to calibrated win probabilities and
+fits Bradley–Terry ratings using those probabilities. Conformal calibration
+then estimates intervals for the difference between judge-derived and human-derived
+ratings. The method targets the Elo scale; it does not remove every judge bias.
 
-Soft-Elo converts an AI judge's score differences into calibrated preference probabilities, then fits Elo ratings to those probabilities. Conformal intervals capture the remaining disagreement with human ratings.
+On LMArena100K, the reproduced mean Elo MAE across eight judges is **45.85 for
+Hard-Elo and 17.87 for Soft-Elo**. See the
+[verification report](reproduction/VERIFICATION.md) for the comparisons and scope.
 
-This repository runs the core evaluation pipeline from saved judgments. It includes calibration, leave-one-model-out evaluation, bootstrap summaries, and conformal diagnostics. No judge API calls or GPU are needed.
+This repository provides annotation-loading examples, paper-reproduction commands,
+and a compact CSV demo. Reproduction compares newly fitted results with archived
+measurements and exits with an error when they disagree.
 
-## Quick start
+## Reproduce one judge
 
-Requires Python 3.10+.
+The paper-reproduction environment uses Python 3.12 and a committed `uv.lock`.
+The computations run on CPU using existing annotations. They make no judge API
+calls and need no GPU.
 
 ```bash
 git clone https://github.com/kargibora/SoftElo.git
 cd SoftElo
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt "Jinja2>=3.1"
-python run_demo.py --alpha 0.20
-python make_tables.py
-python plot_results.py
+uv sync --project reproduction --locked --python 3.12
 ```
 
-Jinja2 is required for LaTeX table export. The 1,000-row sample covers 14 models; `--alpha 0.20` requests 80% coverage because each split has only seven calibration models. The CLI default is 90%.
-
-Expected sample results with seed 42:
-
-| Method | Elo MAE ↓ | Spearman correlation ↑ |
-|---|---:|---:|
-| Hard-Elo | 57.63 | 0.960 |
-| Soft-Elo | 19.54 | 0.969 |
-
-These are demo results, not the full-paper results. Outputs include CSV summaries, `tables.md`, LaTeX tables, and `diagnostics.png` under `outputs/`.
-
-## Implementation
-
-All numerical calculations are in [`softelo_minimal/core.py`](softelo_minimal/core.py).
-
-**Calibrate score differences.** `score_gap` averages the score differences across rubric dimensions shared by both answers. `fit_beta_mle` fits β on human non-tie preferences by minimizing binary cross-entropy:
-
-$$p_{AB}=\sigma(\beta\Delta s),\qquad \sigma(z)=\frac{1}{1+e^{-z}}.$$
-
-**Fit ratings.** `fit_bt` fits Bradley–Terry strengths, with predicted win probability $q_{AB}=\sigma(\theta_A-\theta_B)$. It minimizes cross-entropy against the comparison targets, plus L2 regularization (`λ = 0.01`). Hard-Elo uses win/tie/loss targets `1 / 0.5 / 0`; Soft-Elo uses $p_{AB}$. Centered strengths become Elo ratings through
-
-$$R_m=1500+\frac{400}{\ln 10}\theta_m.$$
-
-**Evaluate held-out models.** `loo_evaluation` excludes one model, fits β and opponent ratings using comparisons between the remaining models, then estimates the excluded model against those fixed opponents. Its human votes are used only to obtain the evaluation reference, not to calibrate β or estimate its judge-derived rating. `fit_bt` uses L-BFGS-B; the single-model fit uses `solve_target_theta`.
-
-**Compute intervals.** `bootstrap_target_se` resamples a model's comparisons while keeping β and opponent ratings fixed. `conformal_summary` splits the held-out results into calibration/test halves, calibrates the normalized error $|R^{human}-R^{judge}|/\mathrm{SE}$, and evaluates intervals $R^{judge}\pm\hat q\,\mathrm{SE}$. Coverage relies on exchangeability; the reported coverage is empirical across repeated splits.
-
-`run_demo.py` runs this pipeline. `make_tables.py` and `plot_results.py` format its outputs without refitting ratings. `beta_full_fit.csv` is a separate whole-input diagnostic, not the β used in held-out evaluation.
-
-## Data and full-size runs
-
-Required CSV columns:
-
-```text
-model_a,model_b,human_pref,judge_pref,scores_a,scores_b
-```
-
-For both preference columns, **`0` means A wins, `1` means B wins, and `0.5` means tie**. The implementation converts these labels to A-win probabilities internally. Scores are dictionaries such as `{"helpfulness": 8, "accuracy": 7}`.
-
-[`data/manifest.csv`](data/manifest.csv) lists the released LMArena 100K, LMArena 140K, and ComparIA judge files. They include preferences, scores, metadata, and hashed identifiers, but no raw prompts or completions. Run each judge file separately:
+The [Hugging Face dataset](https://huggingface.co/datasets/kbora/SoftElo) is currently
+private for author review. An account with access must authenticate first:
 
 ```bash
-python run_demo.py \
-  --data data/lmarena100k/annotations_qwen3_5_27b.csv \
-  --out outputs_qwen \
-  --alpha 0.10
-python make_tables.py --out outputs_qwen
-python plot_results.py --out outputs_qwen
+uv run --project reproduction hf auth login
+uv run --project reproduction python reproduce.py \
+  --suite main --judge GPT-OSS-120B --out outputs/gpt120
 ```
 
-Use `python run_demo.py --help` for bootstrap, split, and seed settings. This package covers the core pipeline, not every paper ablation. `export_release_data.py` is a maintainer utility requiring the original research files; it is not needed for the released CSVs.
+The command downloads a pinned dataset revision, fits Hard-Elo and Soft-Elo for
+each held-out model, and compares all predictions and fitted temperatures with
+the saved reference. Outputs include `summary.csv`, `heldout_models.csv`,
+`run_config.json`, and `validation.json`.
 
-## Current limitations
+For an existing local dataset checkout, add `--data /path/to/dataset`. Install
+without uv using `pip install ./reproduction`; this does not reproduce the lock file.
 
-- The conformal quantile clips to the largest calibration error when there are too few models. A finite 90% threshold requires at least nine calibration models; the sample has seven.
-- The single-model Newton solver can return extreme values without detecting non-convergence. It needs a safeguarded update before use on arbitrary new inputs.
-- Very small bootstrap counts produce unstable intervals. Inputs must follow the documented schema; malformed labels are not always rejected.
+## Reproduction experiments
 
-Source data and terms: [LMArena 100K](https://huggingface.co/datasets/lmarena-ai/arena-human-preference-100k), [LMArena 140K](https://huggingface.co/datasets/lmarena-ai/arena-human-preference-140k), [ComparIA](https://huggingface.co/datasets/ministere-culture/comparia-votes).
+Omit `--judge` to evaluate every judge in a suite. `--jobs` controls parallel CPU
+workers. Two workers are the default.
+
+```bash
+# Main Table 2: eight judges, fold-specific temperature fitting.
+uv run --project reproduction python reproduce.py --suite main --jobs 2
+
+# Appendix E.1: constant smoothing and the pooled-temperature baseline.
+uv run --project reproduction python reproduce.py --suite smoothing --jobs 2
+
+# Main Table 3: the original bootstrap and conformal calculation.
+uv run --project reproduction python reproduce.py --suite conformal-historical --jobs 2
+
+# LMArena 140K: seven judges, fold-specific temperature fitting.
+uv run --project reproduction python reproduce.py --suite lmarena140k --jobs 2
+
+# All 31 judge/protocol combinations.
+uv run --project reproduction python reproduce.py --suite all --jobs 2
+```
+
+| Experiment | Reference comparison |
+| --- | --- |
+| LMArena 100K main | Every held-out Hard/Soft rating, human reference rating and fitted temperature |
+| Constant smoothing | Per-judge MAE for all five constants and both baselines |
+| Historical conformal | Model ratings, bootstrap standard errors and all five split outcomes |
+| LMArena 140K main | Archived per-judge summary statistics; model-level references were not saved |
+
+The comparison uses absolute tolerance `1e-5` and requires matching model/method
+identities. The aggregate `validation.json` lists each comparison and any failures.
+See [reproduction/VERIFICATION.md](reproduction/VERIFICATION.md) for completed checks.
+
+The main and smoothing analyses use different temperature-fitting protocols.
+Constants are compared retrospectively using human Elo. The historical conformal
+command preserves the original quantile interpolation and seeds to reproduce the
+saved results; it is not an implementation of the direct conformal order statistic.
+The original Hard-Elo bootstrap resamples anchor battles, while Soft-Elo keeps
+its anchors fixed. The historical reproduction preserves this asymmetry.
+
+To rebuild tables from saved measurements without running fits:
+
+```bash
+uv run --project reproduction softelo-reproduce \
+  --cached-results /path/to/dataset/results --out outputs/archived-tables
+```
+
+## Load the annotations
+
+```bash
+uv run --project reproduction python examples/load_annotations.py \
+  --corpus lmarena100k --judge GPT-OSS-120B --csv annotations.csv
+```
+
+The dataset contains LMArena 100K and LMArena 140K annotations. Each row is one
+judge's annotation of one battle. Use each judge's valid rows for the paper
+reproduction; intersecting battles across all judges changes the experiment.
+The dataset card documents score orientation, missing per-order scores, upstream
+source revisions and licenses.
+
+## Compact CSV demo
+
+`run_demo.py` retains the original compact implementation for exploring the method
+with CSV input. It treats weak preferences and tied judge scores differently
+from the paper protocols. Use `reproduce.py` above when checking paper numbers.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python run_demo.py --data data/sample_annotations.csv --out outputs/demo
+python make_tables.py --out outputs/demo
+python plot_results.py --out outputs/demo
+```
+
+The input columns are `model_a`, `model_b`, `human_pref`, `judge_pref`, `scores_a`
+and `scores_b`. Preferences use 0 for A wins, 1 for B wins and 0.5 for a tie;
+score dictionaries are JSON strings. The loading example above exports compatible
+CSV files. The original CSV snapshots remain available under `data/`.
+
+## Tests and provenance
+
+```bash
+uv run --project reproduction python -m unittest discover -s reproduction/tests
+```
+
+The reference implementation preserves the original numerical operations.
+[core_provenance.json](reproduction/softelo_release/core_provenance.json) records
+source paths and hashes. LMArena140K summary references and their hashes are in
+[reproduction/references](reproduction/references). The extracted implementation
+uses the Apache-2.0 license; see [LICENSE](reproduction/LICENSE) and
+[NOTICE](reproduction/NOTICE). Dataset terms are documented separately on Hugging Face.
 
 ## Citation
 
 ```bibtex
 @inproceedings{kargi2026softelo,
-  title     = {From Uncertain Judgments to Calibrated Rankings:
-               Conformal Elo Estimation for LLM Evaluation},
-  author    = {Kargi, Bora and Salinas, David},
+  title = {From Uncertain Judgments to Calibrated Rankings: Conformal Elo Estimation for LLM Evaluation},
+  author = {Kargi, Bora and Salinas, David},
   booktitle = {Advances in Neural Information Processing Systems},
-  year      = {2026},
-  url       = {https://arxiv.org/abs/2606.13221}
+  year = {2026},
+  url = {https://openreview.net/forum?id=QRZ8c3QtOj}
 }
 ```
+
+Please also cite the upstream LMArena datasets listed in the Hugging Face dataset card.

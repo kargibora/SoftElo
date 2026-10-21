@@ -1,0 +1,3 @@
+method,mle_mode,beta_reference,temperature_fit_mean,temperature_fit_std,mae,spearman_rho,kendall_tau,spread,n_models,heldout_beta_policy,label,family,params_b,provider
+hard,decisive,,,,70.93902723961584,0.929204966940816,0.79100145137881,2.3331821200428338,53,reestimate_per_target,DeepSeek-V3.2,DeepSeek,671,DeepSeek
+soft,decisive,,0.4002454945862358,0.0029656593185425897,17.432256901937357,0.9300919206579583,0.7880986937590712,0.7911285804594119,53,reestimate_per_target,DeepSeek-V3.2,DeepSeek,671,DeepSeek

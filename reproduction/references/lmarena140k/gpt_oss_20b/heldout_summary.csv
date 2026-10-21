@@ -1,0 +1,3 @@
+method,mle_mode,beta_reference,temperature_fit_mean,temperature_fit_std,mae,spearman_rho,kendall_tau,spread,n_models,heldout_beta_policy,label,family,params_b,provider
+hard,decisive,,,,67.47856399511895,0.8999354942751169,0.725689404934688,2.1692052744818535,53,reestimate_per_target,GPT-OSS-20B,GPT-OSS,20,OpenAI
+soft,decisive,,0.5118171724604303,0.0041688454587245,22.801413243156777,0.9083212385099176,0.7460087082728593,0.6268888056654199,53,reestimate_per_target,GPT-OSS-20B,GPT-OSS,20,OpenAI
