@@ -25,12 +25,8 @@ calls are required.
 
 ## Reproduce the results
 
-The [annotation dataset](https://huggingface.co/datasets/kbora/SoftElo) is currently
-private. Authenticate with an account that has access:
-
-```bash
-uv run --project reproduction hf auth login
-```
+The [annotation dataset](https://huggingface.co/datasets/kbora/SoftElo) is public
+and downloads automatically. No authentication is required.
 
 Run one judge:
 
