@@ -1,11 +1,6 @@
 Soft-Elo reproduction package
 Bora Kargi and David Salinas, 2026
 
-This package includes functions extracted from the authors' OpenJury and
-Soft-Elo experiment implementations. OpenJury's Apache License 2.0 is preserved
-in LICENSE. The original source paths and hashes are recorded in
-softelo_release/core_provenance.json.
-
-Changes for this release: standalone imports, annotation-only data loading,
-explicit protocol selection, provenance manifests, validation and cached-table
-reconstruction. Numerical source functions retain their original operations.
+Includes code from the authors' OpenJury and Soft-Elo implementations,
+adapted for standalone annotation loading and experiment execution.
+OpenJury's Apache License 2.0 is included in LICENSE.

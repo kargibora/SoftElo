@@ -1,10 +1,4 @@
-"""Historical Soft-Elo implementation extracted from the research repository.
-
-Functions retain the original numerical operations, including historical
-conformal quantile behavior. See core_provenance.json and reproduce.py for
-protocol selection. The historical conformal mode is not the recommended
-finite-sample quantile implementation for new analyses.
-"""
+"""Numerical implementation of the Soft-Elo paper experiments."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
