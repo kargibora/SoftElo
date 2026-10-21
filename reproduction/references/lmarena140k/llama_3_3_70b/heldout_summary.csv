@@ -1,0 +1,3 @@
+method,mle_mode,beta_reference,temperature_fit_mean,temperature_fit_std,mae,spearman_rho,kendall_tau,spread,n_models,heldout_beta_policy,label,family,params_b,provider
+hard,decisive,,,,56.681370656176114,0.7539912917271407,0.5703918722786647,2.1430214773054774,53,reestimate_per_target,Llama-3.3-70B,Llama,70,Meta
+soft,decisive,,0.4740270519220241,0.004530734006122507,31.13564813602292,0.7524592807611676,0.5718432510885342,0.6014624716431678,53,reestimate_per_target,Llama-3.3-70B,Llama,70,Meta

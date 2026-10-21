@@ -1,0 +1,3 @@
+method,mle_mode,beta_reference,temperature_fit_mean,temperature_fit_std,mae,spearman_rho,kendall_tau,spread,n_models,heldout_beta_policy,label,family,params_b,provider
+hard,decisive,,,,77.54351311775675,0.9379938719561361,0.8055152394775037,2.5387661241009667,53,reestimate_per_target,Gemma4-27B,Gemma,27,Google
+soft,decisive,,0.604440381113175,0.005193720150289,19.198313791719034,0.9448476052249638,0.802612481857765,0.7047435044270176,53,reestimate_per_target,Gemma4-27B,Gemma,27,Google
